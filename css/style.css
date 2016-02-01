@@ -1,0 +1,58 @@
+body {
+    background-color: #eee;
+}
+
+.health-container {
+    display: flex;
+}
+
+.half {
+    width: 50%;
+}
+
+.itemContainer {
+    outline: 1px solid #aaa;
+    width: 250px;
+    background-color: #fff;
+    float: left;
+    margin: 5px;
+}
+
+.itemContainer img {
+    float: left;
+    margin: 10px;
+    width: 80px;
+    height: auto;
+}
+
+.itemContainer ul {
+    list-style-type: none;
+    margin: 10px 20px;
+    padding-left: 0px;
+}
+
+.itemContainer li {
+    line-height: 16px;
+    padding: 2px 16px 1px;
+    border-bottom: 1px solid #e6e6e6;
+    font-size: 13px;
+}
+
+.itemContainer button {
+    float: right;
+    margin: 10px;
+}
+
+#searchItem label {
+    width: 100px;
+    margin-right: 10px;
+    text-align: right;
+    line-height: 25px;
+}
+
+#searchItem label, #searchItem input {
+    margin-bottom: 10px;
+}
+
+#searchItem button {
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Health Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="foods" class="foods-container">
+        <div id="left" class="half">
+            <form id="searchItem" action="#">
+                <div>
+                    <label for="food">Food: </label><input id="food" type="text" />
+                    <button id="search">Search</button>
+                </div>
+            </form>
+            <div id="items">
+            </div>
+        </div>
+        <div id="right" class="half">
+        </div>
+    </div>
+    <script id="itemTemplate" type="text/template">
+        <ul>
+            <li><%= name %></li>
+            <li><span>Calories</span> <%= calories %></li>
+            <li><span>Total Fat</span> <%= totalFat %></li>
+            <li><span>Cholesterol</span> <%= cholesterol %></li>
+            <li><span>Sodium</span> <%= sodium %></li>
+            <li><span>Protein</span> <%= protein %></li>
+        </ul>
+
+        <button class="select">Select</button>
+    </script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
+    <script src="js/models/item.js"></script>
+    <script src="js/collections/trackedfoods.js"></script>
+    <script src="js/views/item.js"></script>
+    <script src="js/views/trackedfoods.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
