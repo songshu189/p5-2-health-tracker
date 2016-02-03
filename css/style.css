@@ -4,6 +4,7 @@ body {
 
 .health-container {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .half {
@@ -12,35 +13,28 @@ body {
 
 .itemContainer {
     outline: 1px solid #aaa;
-    width: 250px;
+    width: 200px;
     background-color: #fff;
     float: left;
     margin: 5px;
 }
 
-.itemContainer img {
-    float: left;
-    margin: 10px;
-    width: 80px;
-    height: auto;
-}
-
 .itemContainer ul {
     list-style-type: none;
-    margin: 10px 20px;
+    margin: 10px 20px 6px;
     padding-left: 0px;
 }
 
 .itemContainer li {
     line-height: 16px;
-    padding: 2px 16px 1px;
+    padding: 2px 10px 1px;
     border-bottom: 1px solid #e6e6e6;
     font-size: 13px;
 }
 
 .itemContainer button {
     float: right;
-    margin: 10px;
+    margin: 4px;
 }
 
 #searchItem label {
@@ -54,5 +48,10 @@ body {
     margin-bottom: 10px;
 }
 
-#searchItem button {
+span {
+    font-weight: bold;
+}
+
+li input {
+    width: 50px;
 }
