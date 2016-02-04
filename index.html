@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Health Tracker</title>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -28,7 +27,7 @@
     </div>
     <script id="itemSelectTemplate" type="text/template">
         <ul>
-            <li><span class="tooltip" title="<%= name %>"><%= name %><span></li>
+            <li><span class="tooltip" title='<%= name %>'><%= trunc(name) %><span></li>
             <li><span>Calories</span> <%= calories %></li>
             <li><span>Total Fat</span> <%= totalFat %></li>
             <li><span>Cholesterol</span> <%= cholesterol %></li>
@@ -52,7 +51,6 @@
         <button class="delete">Delete</button>
     </script>
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>

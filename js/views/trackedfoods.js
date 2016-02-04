@@ -7,7 +7,19 @@ app.TrackedFoodsView = Backbone.View.extend({
 
     initialize: function() {
         this.$items = this.$el.find('#items');
+        this.$totalSumary = this.$el.find('#total-summary');
         this.$trackedItems = this.$el.find('#tracked-items');
+
+        this.total = new app.Item();
+        this.total.attributes['name'] = 'Total Summary';
+        /*{
+            name: 'Total Summary',
+            calories: 0,
+            totalFat: 0,
+            cholesterol: 0,
+            sodium: 0,
+            protein: 0
+        };*/
 
         this.collection = new app.TrackedFoods();
         this.trackedfoods = new app.TrackedFoods();
@@ -70,6 +82,32 @@ app.TrackedFoodsView = Backbone.View.extend({
 
     // render tracked-foods by rendering each food in its collection
     renderTracked: function() {
+        var self = this;
+
+        this.total.attributes['calories'] = 0;
+        this.total.attributes['totalFat'] = 0;
+        this.total.attributes['cholesterol'] = 0;
+        this.total.attributes['sodium'] = 0;
+        this.total.attributes['protein'] = 0;
+        console.log(this.total);
+
+        this.trackedfoods.each(function(item) {
+            console.log('item', item);
+            self.total.attributes['calories'] += item.attributes['calories'];
+            self.total.attributes['totalFat'] += item.attributes['totalFat'];
+            self.total.attributes['cholesterol'] += item.attributes['cholesterol'];
+            self.total.attributes['sodium'] += item.attributes['sodium'];
+            self.total.attributes['protein'] += item.attributes['protein'];
+        });
+
+        var totalView = new app.ItemView({
+            model: this.total,
+        });
+
+        this.$totalSumary.html('');
+        this.$totalSumary.append( totalView.render().el );
+
+        this.$trackedItems.html('');
         this.trackedfoods.each(function( item ) {
             this.renderTrackedItem( item );
         }, this );
@@ -88,6 +126,12 @@ app.TrackedFoodsView = Backbone.View.extend({
         var itemView = new app.ItemView({
             model: item,
         });
+        this.total.attributes['calories'] += item.attributes['calories'];
+        this.total.attributes['totalFat'] += item.attributes['totalFat'];
+        this.total.attributes['cholesterol'] += item.attributes['cholesterol'];
+        this.total.attributes['sodium'] += item.attributes['sodium'];
+        this.total.attributes['protein'] += item.attributes['protein'];
+
         this.$trackedItems.append( itemView.render().el );
     }
 });
