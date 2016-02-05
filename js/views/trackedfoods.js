@@ -100,6 +100,12 @@ app.TrackedFoodsView = Backbone.View.extend({
             self.total.attributes['protein'] += item.attributes['protein'];
         });
 
+        this.total.attributes['calories'] = round2(this.total.attributes['calories']);
+        this.total.attributes['totalFat'] = round2(this.total.attributes['totalFat']);
+        this.total.attributes['cholesterol'] = round2(this.total.attributes['cholesterol']);
+        this.total.attributes['sodium'] = round2(this.total.attributes['sodium']);
+        this.total.attributes['protein'] = round2(this.total.attributes['protein']);
+
         var totalView = new app.ItemView({
             model: this.total,
         });
@@ -135,3 +141,7 @@ app.TrackedFoodsView = Backbone.View.extend({
         this.$trackedItems.append( itemView.render().el );
     }
 });
+
+function round2(x) {
+    return Math.round(x*100)/100;
+}
