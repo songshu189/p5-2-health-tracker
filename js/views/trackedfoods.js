@@ -106,7 +106,7 @@ app.TrackedFoodsView = Backbone.View.extend({
         this.total.attributes['sodium'] = round2(this.total.attributes['sodium']);
         this.total.attributes['protein'] = round2(this.total.attributes['protein']);
 
-        var totalView = new app.ItemView({
+        var totalView = new app.TotalView({
             model: this.total,
         });
 

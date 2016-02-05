@@ -48,3 +48,16 @@ app.ItemView = Backbone.View.extend({
         return this;
     }
 });
+
+app.TotalView = Backbone.View.extend({
+    tagName: 'div',
+    className: 'totalContainer',
+    template: _.template( $( '#totalTemplate' ).html() ),
+
+    render: function() {
+        //this.el is what we defined in tagName. use $el to get access to jQuery html() function
+        this.$el.html( this.template( this.model.attributes ) );
+
+        return this;
+    }
+});

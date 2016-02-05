@@ -19,13 +19,20 @@ body {
     margin: 5px;
 }
 
-.itemContainer ul {
+.totalContainer {
+    outline: 1px solid #aaa;
+    width: 200px;
+    background-color: #fff;
+    margin: 5px;
+}
+
+.itemContainer ul, .totalContainer ul {
     list-style-type: none;
     margin: 10px 20px 6px;
     padding-left: 0px;
 }
 
-.itemContainer li {
+.itemContainer li, .totalContainer li {
     line-height: 16px;
     padding: 2px 10px 1px;
     border-bottom: 1px solid #e6e6e6;
