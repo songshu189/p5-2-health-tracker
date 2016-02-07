@@ -36,7 +36,9 @@ app.ItemView = Backbone.View.extend({
     deleteItem: function() {
         //Delete model
         this.model.destroy();
-
+        console.log(appViews.trackedfoods);
+        appViews.trackedfoods.remove(this.model);
+        console.log(appViews.trackedfoods);
         //Delete view
         this.remove();
     },

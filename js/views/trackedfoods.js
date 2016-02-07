@@ -11,26 +11,22 @@ app.TrackedFoodsView = Backbone.View.extend({
         this.$trackedItems = this.$el.find('#tracked-items');
 
         this.total = new app.Item();
-        this.total.attributes['name'] = 'Total Summary';
-        /*{
-            name: 'Total Summary',
-            calories: 0,
-            totalFat: 0,
-            cholesterol: 0,
-            sodium: 0,
-            protein: 0
-        };*/
+        this.total.set({name: 'Total Summary'});
 
         this.collection = new app.TrackedFoods();
         this.trackedfoods = new app.TrackedFoods();
         this.trackedfoods.fetch({reset: true});   // NEW
 
+        this.renderTotal();
         this.renderTracked();
 
         this.listenTo( this.collection, 'add', this.renderItem );
         this.listenTo( this.collection, 'reset', this.render ); // NEW
         this.listenTo( this.trackedfoods, 'add', this.renderTrackedItem );
         this.listenTo( this.trackedfoods, 'reset', this.renderTracked ); // NEW
+        this.listenTo( this.trackedfoods, 'reset', this.renderTotal ); // NEW
+        this.listenTo( this.trackedfoods, 'add', this.renderTotal ); // NEW
+        this.listenTo( this.trackedfoods, 'remove', this.renderTotal ); // NEW
     },
 
     events:{
@@ -82,36 +78,6 @@ app.TrackedFoodsView = Backbone.View.extend({
 
     // render tracked-foods by rendering each food in its collection
     renderTracked: function() {
-        var self = this;
-
-        this.total.attributes['calories'] = 0;
-        this.total.attributes['totalFat'] = 0;
-        this.total.attributes['cholesterol'] = 0;
-        this.total.attributes['sodium'] = 0;
-        this.total.attributes['protein'] = 0;
-        console.log(this.total);
-
-        this.trackedfoods.each(function(item) {
-            console.log('item', item);
-            self.total.attributes['calories'] += item.attributes['calories'];
-            self.total.attributes['totalFat'] += item.attributes['totalFat'];
-            self.total.attributes['cholesterol'] += item.attributes['cholesterol'];
-            self.total.attributes['sodium'] += item.attributes['sodium'];
-            self.total.attributes['protein'] += item.attributes['protein'];
-        });
-
-        this.total.attributes['calories'] = round2(this.total.attributes['calories']);
-        this.total.attributes['totalFat'] = round2(this.total.attributes['totalFat']);
-        this.total.attributes['cholesterol'] = round2(this.total.attributes['cholesterol']);
-        this.total.attributes['sodium'] = round2(this.total.attributes['sodium']);
-        this.total.attributes['protein'] = round2(this.total.attributes['protein']);
-
-        var totalView = new app.TotalView({
-            model: this.total,
-        });
-
-        this.$totalSumary.html('');
-        this.$totalSumary.append( totalView.render().el );
 
         this.$trackedItems.html('');
         this.trackedfoods.each(function( item ) {
@@ -132,16 +98,39 @@ app.TrackedFoodsView = Backbone.View.extend({
         var itemView = new app.ItemView({
             model: item,
         });
-        this.total.attributes['calories'] += item.attributes['calories'];
-        this.total.attributes['totalFat'] += item.attributes['totalFat'];
-        this.total.attributes['cholesterol'] += item.attributes['cholesterol'];
-        this.total.attributes['sodium'] += item.attributes['sodium'];
-        this.total.attributes['protein'] += item.attributes['protein'];
 
         this.$trackedItems.append( itemView.render().el );
+    },
+
+    renderTotal: function() {
+        var data = {calories:0, totalFat:0, cholesterol:0, sodium:0, protein:0};
+
+        this.trackedfoods.each(function(item) {
+            data['calories'] += item.get('calories');
+            data['totalFat'] += item.get('totalFat');
+            data['cholesterol'] += item.get('cholesterol');
+            data['sodium'] += item.get('sodium');
+            data['protein'] += item.get('protein');
+        });
+
+        this.round2Nutrtion(data);
+
+        this.total.set(data);
+        var totalView = new app.TotalView({
+            model: this.total,
+        });
+
+        this.$totalSumary.html('');
+        this.$totalSumary.append( totalView.render().el );
+    },
+
+    round2Nutrtion: function(data) {
+        function round2(x) {
+            return Math.round(x*100)/100;
+        }
+
+        _.each(data, function(value, key, obj){
+            obj[key] = round2(value);
+        });
     }
 });
-
-function round2(x) {
-    return Math.round(x*100)/100;
-}
